@@ -1,0 +1,72 @@
+node_modules
+dist
+dev-server.log
+dev-server.log.err
+*.apk
+android/.gradle
+android/app/build
+android/build
+android/local.properties
+.DS_Store
+
+# 自动化浏览器持久化 profile
+.automation-profile
+run.log
+run-gen.log
+
+# 本地日志 / 抓包 / 生成结果（含用户内容与可能的请求体），严禁入库
+logs/
+body.json
+*.capture*.txt
+_capture-raw.txt
+
+# 陈旧 UI 源码备份 / 一次性排障脚本（曾在其中硬编码测试 API Key）
+_codex_backup_*/
+cdp*.mjs
+speed.mjs
+scripts/_*.mjs
+scripts/_*.ts
+scripts/test-real-*.mjs
+
+# 本机模拟器调试截图（含学习内容），不随源码发布
+android/em_*.png
+android/emulator_launch.png
+ui.xml
+
+# 敏感配置：密钥一律走环境变量，只提交空模板
+.env
+.env.*
+!.env.example
+*.pem
+*.keystore
+*.jks
+
+# 本地凭据扫描 / 一次性产物
+secrets-scan-report/
+# 内部过程文档 / AI 协作指南（不随开源发布，仅本地保留）
+docs/internal/
+AGENTS.md
+
+# onnxruntime-web wasm 后端（构建时由 scripts/copy-ort.mjs 生成到 src/assets/ort-wasm/，不入库）
+src/assets/ort-wasm/
+
+# V-EMB 本地验证模型（91MB，不入库；托管后置后由清单下载）
+public/models/
+# onnxruntime-web wasm 后端（构建时由 scripts/copy-ort.mjs 自动复制，不入库）
+public/ort-wasm/
+
+# 大体积构建缓存 / 本地模型包（本地生成，不入库）
+gradle-cache/
+model-pack/
+node_modules/.vite-cache
+android/build-cache/
+# Capacitor 同步产物（cap sync 从 dist 重新生成，含 ~700MB 向量模型权重）
+android/app/src/main/assets/public/
+
+# 例外：真实模型判型测试脚本需要入库（默认跳过，LAYER2=1 才执行）
+!scripts/_layer2-node.test.ts
+
+# 出厂测试数据（含大文件与测试内容，不入库；生成器 scripts/gen-testdata.mjs；README 例外入库）
+testdata/*
+!testdata/README.md
+test-evidence/

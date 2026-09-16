@@ -1,0 +1,13 @@
+// 工具链自动供给（6.82 打包引入）：@capacitor/filesystem 的 build.gradle 声明 jvmToolchain(21)，
+// Gradle 按 major 精确匹配而本机只有 JDK 24 → 需允许 Gradle 自动下载缺失 JDK。
+// 下载落到 GRADLE_USER_HOME（项目 gradle-cache，已 gitignore），不改系统环境；后续任何插件
+// 要求其他 JDK 版本同样自动解决，无需再动本文件。
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.10.0'
+}
+
+include ':app'
+include ':capacitor-cordova-android-plugins'
+project(':capacitor-cordova-android-plugins').projectDir = new File('./capacitor-cordova-android-plugins/')
+
+apply from: 'capacitor.settings.gradle'

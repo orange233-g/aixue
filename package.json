@@ -1,0 +1,46 @@
+{
+  "name": "ai-xue",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "prepare:ort": "node scripts/copy-ort.mjs",
+    "dev": "npm run prepare:ort && vite",
+    "build": "npm run prepare:ort && tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "android:sync": "npm run build && npx cap sync android",
+    "android:open": "npx cap open android",
+    "android:apk": "npm run build && npx cap sync android && cd android && gradlew.bat assembleDebug",
+    "android:personal": "npm run build && npx cap sync android && cd android && gradlew.bat assemblePersonal",
+    "secret:scan": "node scripts/secret-scan.mjs",
+    "secret:scan:optional": "node scripts/secret-scan.mjs optional",
+    "android:release": "node scripts/check-android-env.mjs && npm run build && npx cap sync android && cd android && gradlew.bat assembleRelease"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/app": "^8.1.1",
+    "@capacitor/core": "^8.5.0",
+    "@capacitor/filesystem": "^8.1.3",
+    "@capacitor/share": "^8.0.1",
+    "fflate": "^0.8.3",
+    "idb": "^8.0.0",
+    "onnxruntime-web": "1.26.0-dev.20260416-b7804b056c",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.0.5",
+    "fake-indexeddb": "^6.2.5",
+    "onnxruntime-node": "^1.24.3",
+    "playwright": "^1.62.1",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.0",
+    "vitest": "^4.1.11"
+  }
+}

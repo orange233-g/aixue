@@ -1,0 +1,34 @@
+# gitleaks 配置：CI / pre-commit 密钥扫描。
+# 运行方式：
+#   gitleaks detect --source=. -v        # 工作区扫描
+#   gitleaks git --log-opts="--all" -v   # 完整 Git 历史扫描
+#   npm run secret:scan                  # 封装门禁（见 scripts/secret-scan.mjs）
+title = "问学 AI 凭据扫描"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = """本仓库**仅**放行下列逐字列出的假 Key（测试/文档里的显式占位凭证；真实形态必须失败）。
+V3-S04：不再整目录放行 docs/ 与所有测试文件——文档与临时测试恰恰是开发者最易粘贴真实 Key 的位置，
+因此这些路径纳入扫描，只允许精确的假 Key 内容。"""
+regexes = [
+    # 测试里使用的明文假 Key（sk- 前缀经典形态，逐字精确）
+    '''sk-TEST[A-Za-z0-9]{10,}''',
+    '''sk-abcdef1234567890abcdef''',
+    '''sk-abc-should-fully-hide''',
+    '''sk-verysecretkey123''',
+    '''sk-proj-abcdefghijklmnopqrstuvwxyz123456''',
+    # 占位 JWT（固定假签名，避免触发默认规则）
+    '''eyJhbGciOiJIUzI1NiJ9''',
+    # 假查询参数 / 短占位值
+    '''deadbeefsecret''',
+    '''abcDEF0123456789''',
+    # scripts/*.ts 给各厂商喂的占位 key（qwen-key / openai-key / saved-key / volc-key / test-key）
+    '''(test|qwen|openai|saved|volc)[-_]?[Kk]ey''',
+    '''(test|dummy|fake|placeholder|example)[-_]?[Kk]ey[=: ]+[A-Za-z0-9]{8,}''',
+]
+paths = [
+    # gitleaks 自身配置放行（不含真实 Key）
+    '''(^|/)\.gitleaks\.toml$''',
+]

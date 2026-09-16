@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- V3-S06：移除暴露整个外部存储的 <external-path path="." />（前端走浏览器下载/上传，不依赖
+         FileProvider 分享外部文件；此类宽范围授权在未来的 URI 授权功能里会放大泄露面）。仅保留
+         cache-path：cache 目录属于本应用私有存储，授权范围已被系统沙箱圈定，用于插件内部分享安全。 -->
+    <cache-path name="cache" path="." />
+</paths>

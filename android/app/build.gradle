@@ -1,0 +1,102 @@
+apply plugin: 'com.android.application'
+
+android {
+    namespace = "com.aixue.app"
+    compileSdk = rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.aixue.app"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        aaptOptions {
+             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
+             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
+            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+        }
+    }
+    signingConfigs {
+        // V4-S01：release 签名从环境变量或 gradle 属性读取正式 keystore 与密码/别名。
+        // 仅在此处声明签名配置，**不在此做 fail-closed**——否则 Gradle 配置项目时会配置全部 buildType，
+        // 导致没有 release keystore 时连 assembleDebug/assemblePersonal 也在配置期失败。
+        // fail-closed 下移到 scripts 的 gradle.taskGraph.whenReady，只在任务图确实包含 release 任务时触发。
+        release {
+            def storePath = System.getenv("AIXUE_KEYSTORE_PATH") ?: (project.hasProperty("AIXUE_KEYSTORE_PATH") ? project.property("AIXUE_KEYSTORE_PATH") : "")
+            if (storePath && file(storePath).exists()) {
+                storeFile file(storePath)
+            }
+            storePassword System.getenv("AIXUE_KEYSTORE_PASS") ?: (project.hasProperty("AIXUE_KEYSTORE_PASS") ? project.property("AIXUE_KEYSTORE_PASS") : "")
+            keyAlias System.getenv("AIXUE_KEY_ALIAS") ?: (project.hasProperty("AIXUE_KEY_ALIAS") ? project.property("AIXUE_KEY_ALIAS") : "")
+            keyPassword System.getenv("AIXUE_KEY_PASS") ?: (project.hasProperty("AIXUE_KEY_PASS") ? project.property("AIXUE_KEY_PASS") : "")
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // V4-S01：仅在此处按「是否已提供 keystore」决定是否应用正式签名；
+            // 最终 fail-closed（缺任意签名要素即抛错）由 scripts 的 taskGraph.whenReady 按任务图触发，不阻塞空跑/非 release 构建。
+            if (signingConfigs.release.storeFile != null) {
+                signingConfig signingConfigs.release
+            }
+        }
+        // V3-S01 / V4-S01：个人自装专用变体，明确命名避免与 release 混淆；固定用 debug 签名，仅限本人设备。
+        // 该变体不会被 release 的 fail-closed 影响，确保「没有正式证书也能个人自装」。
+        personal {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+// V4-S01：只在任务图真正包含 release 相关任务时执行 fail-closed。
+// Gradle 配置项目时会配置全部 buildType；若在 buildTypes.release 直接 throw，会连带阻塞缺少正式 keystore 的
+// assembleDebug/assemblePersonal。此处按执行任务图判断，只有显式跑 release 时才强制要求完整签名。
+gradle.taskGraph.whenReady { graph ->
+    def releaseTasks = graph.allTasks.findAll { it.project == project && it.name.toLowerCase().contains('release') }
+    if (releaseTasks) {
+        def rc = android.signingConfigs.release
+        def missing = []
+        if (rc.storeFile == null) missing << 'AIXUE_KEYSTORE_PATH'
+        if (!rc.storePassword) missing << 'AIXUE_KEYSTORE_PASS'
+        if (!rc.keyAlias) missing << 'AIXUE_KEY_ALIAS'
+        if (!rc.keyPassword) missing << 'AIXUE_KEY_PASS'
+        if (missing) {
+            throw new GradleException(
+                "release 签名配置缺失：${missing.join('、')}。release 必须 fail-closed，禁止用 debug 签名冒充正式包。" +
+                "个人自装请改用 assemblePersonal（debug 签名）；正式发布请提供以上签名要素。"
+            )
+        }
+    }
+}
+
+repositories {
+    flatDir{
+        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
+    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
+    implementation project(':capacitor-android')
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+    implementation project(':capacitor-cordova-android-plugins')
+}
+
+apply from: 'capacitor.build.gradle'
+
+try {
+    def servicesJSON = file('google-services.json')
+    if (servicesJSON.text) {
+        apply plugin: 'com.google.gms.google-services'
+    }
+} catch(Exception e) {
+    logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
+}

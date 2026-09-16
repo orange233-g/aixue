@@ -1,0 +1,483 @@
+{
+  "id": "p_language_mswyj4xih5iuh",
+  "title": "语言·自动测试题包",
+  "category": "语言",
+  "source": "ai",
+  "meta": {
+    "difficulty": "未标注",
+    "objectives": []
+  },
+  "chapters": [],
+  "questions": [
+    {
+      "id": "q_mswyhzgali5dg",
+      "type": "essay",
+      "stem": "请论述英语语法学习在英语语言能力发展中的重要性，并分析中国学生在英语语法学习过程中常见的问题及解决策略。",
+      "answer": "1) 语法是语言的基础，影响听说读写各方面能力；2) 常见问题包括时态混淆、句子结构错误、冠词使用不当等；3) 解决策略包括系统学习语法规则、大量阅读、语境练习等。",
+      "explanation": "此题考察学生对英语语法重要性的认识以及对中国学生语法学习问题的了解，需要学生提出有针对性的解决策略，展示对语法学习方法的深入思考。",
+      "kp_ids": [
+        "英语语法学习、语言能力发展、常见语法问题"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "q_mswyhzgaogtta",
+      "type": "essay",
+      "stem": "分析英语词汇与短语辨析在跨文化交际中的作用，并举例说明如何提高英语词汇和短语的准确运用能力。",
+      "answer": "1) 词汇和短语准确使用是有效交际的基础；2) 跨文化交际中词汇差异可能导致误解；3) 提高策略包括语境学习、文化背景了解、对比分析等；4) 举例说明同义词、近义词在不同语境中的使用差异。",
+      "explanation": "此题考察学生对词汇短语与跨文化交际关系的理解，需要学生结合具体例子进行分析，展示词汇短语准确运用的重要性，体现对语言与文化关系的深刻认识。",
+      "kp_ids": [
+        "词汇短语辨析、跨文化交际、语言准确运用"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "q_mswyi0jldp0gi",
+      "type": "fill",
+      "stem": "If he ______ (study) harder, he would have passed the exam last week.",
+      "answer": "had studied",
+      "explanation": "此题考查虚拟语气的用法。句子表达的是与过去事实相反的假设，应该使用\"had + 过去分词\"的结构。句意为\"如果他当时学习更努力，他上周就会通过考试了\"。",
+      "kp_ids": [
+        "虚拟语气"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyi0jltz1wa",
+      "type": "fill",
+      "stem": "The government has taken measures to ______ (reduce) the negative effects of economic crisis.",
+      "answer": "reduce",
+      "explanation": "此题考查动词不定式的用法。此处\"to\"是不定式符号，后面应该跟动词原形。句意为\"政府已经采取措施来减少经济危机的负面影响\"。",
+      "kp_ids": [
+        "动词不定式"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "q_mswyi0jlldk9b",
+      "type": "fill",
+      "stem": "When you enter someone's house in Britain, it's polite to ______ your shoes at the door.",
+      "answer": "take off",
+      "explanation": "此题考查情景交际中的文化习俗。在英国文化中，进入他人家中时，脱鞋是一种礼貌的行为。短语\"take off\"表示\"脱下\"。句意为\"当你进入英国某人的房子时，在门口脱鞋是礼貌的\"。",
+      "kp_ids": [
+        "情景交际",
+        "文化习俗"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyi7ycyny8w",
+      "type": "short",
+      "stem": "请简要解释英语中的现在完成时与一般过去时的主要区别，并各举一例说明。",
+      "answer": "1. 时间参照点不同：现在完成时与现在有联系，一般过去时与现在无关；2. 完成时强调动作的完成结果或对现在的影响，过去时强调动作在过去发生；3. 完成时与for/since连用表示持续，过去时与具体时间状语连用；4. 例句：现在完成时\"I have lived here for ten years.\"（表示从过去到现在一直住在这里）；过去时\"I lived there for ten years.\"（表示过去在那里住了十年，现在不住在那里了）",
+      "explanation": "此题考察学生对英语基本时态的理解和区分能力。掌握这两种时态的区别对于准确表达时间概念至关重要。学生需要理解时态不仅表示时间，还表达说话者对事件的态度和与现在的联系。",
+      "kp_ids": [
+        "英语时态",
+        "现在完成时",
+        "一般过去时"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyi7ycuak11",
+      "type": "short",
+      "stem": "请简要辨析\"borrow\"和\"lend\"这两个动词的用法区别，并各造一个例句。",
+      "answer": "1. borrow表示\"借入\"，指向别人借东西，主语是接收者；2. lend表示\"借出\"，指把自己的东西借给别人，主语是给予者；3. 例句：borrow: \"Can I borrow your pen?\"（我能借你的笔吗？）；lend: \"Can you lend me your pen?\"（你能借我你的笔吗？）",
+      "explanation": "此题考察学生对易混淆动词的辨析能力。borrow和lend是许多英语学习者容易混淆的词，理解它们的方向性（谁给谁）是正确使用的关键。通过对比和例句，学生可以更清晰地掌握这两个词的用法差异。",
+      "kp_ids": [
+        "动词辨析",
+        "词汇用法",
+        "borrow",
+        "lend"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyi7ycxolbf",
+      "type": "short",
+      "stem": "在英语文化中，当别人称赞你时，应该如何得体地回应？请列举至少三种不同的回应方式并解释其文化背景。",
+      "answer": "1. 直接接受并表示感谢：\"Thank you, I'm glad you like it.\"（谢谢，很高兴你喜欢）- 文化背景：西方文化中接受赞美被视为自信的表现，不谦虚反而显得不真诚；2. 转移赞美焦点：\"Thank you! My mother helped me choose it.\"（谢谢！是我妈妈帮我选的）- 文化背景：体现谦逊，同时将功劳归于他人，避免显得自夸；3. 回以赞美：\"Thank you! Your dress looks beautiful too.\"（谢谢！你的裙子也很漂亮）- 文化背景：体现礼貌和社交礼仪，通过赞美对方来回应赞美，创造积极的交流氛围",
+      "explanation": "此题考察学生对英语文化中社交礼仪的理解。不同文化对赞美的回应方式有很大差异，了解这些差异有助于跨文化交流。学生需要认识到语言不仅是交流工具，还承载着文化价值观和社交规范。",
+      "kp_ids": [
+        "情景交际",
+        "文化差异",
+        "社交礼仪",
+        "英语表达"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "q_mswyi897r6b6m",
+      "type": "judge",
+      "stem": "在英语中，现在完成时表示过去发生的动作对现在造成的影响或结果。",
+      "options": [
+        "正确",
+        "错误"
+      ],
+      "answer": "true",
+      "explanation": "现在完成时的确表示过去发生的动作对现在造成的影响或结果，这是其基本用法之一。例如：\"I have lost my keys.\"（我把钥匙弄丢了）表示过去丢失钥匙这个动作对现在的影响是\"我现在没有钥匙\"。",
+      "kp_ids": [
+        "英语语法-时态"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyi8970a3z0",
+      "type": "judge",
+      "stem": "\"Borrow\"和\"Lend\"在英语中意思相同，可以互换使用。",
+      "options": [
+        "正确",
+        "错误"
+      ],
+      "answer": "false",
+      "explanation": "\"Borrow\"表示\"借入\"，即从别人那里拿东西暂时使用；而\"Lend\"表示\"借出\"，即把自己的东西给别人暂时使用。两者方向相反，不能互换使用。例如：\"Can I borrow your pen?\"（我能借你的笔吗？）和\"Can you lend me your pen?\"（你能把笔借给我吗？）表达的是同一个请求，但使用的动词不同。",
+      "kp_ids": [
+        "英语词汇-近义词辨析"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyi897obb4c",
+      "type": "judge",
+      "stem": "\"Look forward to\"中的\"to\"是不定式符号，后面应该接动词原形。",
+      "options": [
+        "正确",
+        "错误"
+      ],
+      "answer": "false",
+      "explanation": "\"Look forward to\"是一个固定短语，其中的\"to\"是介词，不是不定式符号，所以后面应该接名词或动名词，而不是动词原形。例如：\"I am looking forward to seeing you.\"（我期待见到你）中，\"to\"后面接的是动名词\"seeing\"。",
+      "kp_ids": [
+        "英语短语-介词短语"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyi89775awt",
+      "type": "judge",
+      "stem": "在英语中，当别人对你说\"How do you do?\"时，最合适的回应也是\"How do you do?\"。",
+      "options": [
+        "正确",
+        "错误"
+      ],
+      "answer": "true",
+      "explanation": "\"How do you do?\"是英语中一种正式的问候方式，通常用于初次见面，回应时同样使用\"How do you do?\"。这与\"How are you?\"不同，后者通常回应为\"I'm fine, thank you. And you?\"。",
+      "kp_ids": [
+        "英语交际-问候语"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "q_mswyi897n8qhi",
+      "type": "judge",
+      "stem": "在英语条件句中，如果主句用将来时，从句必须用一般现在时表示将来。",
+      "options": [
+        "正确",
+        "错误"
+      ],
+      "answer": "true",
+      "explanation": "在英语条件句中，遵循\"主将从现\"的原则，即如果主句用将来时，从句要用一般现在时表示将来。例如：\"If it rains tomorrow, I will stay at home.\"（如果明天下雨，我将待在家里）。",
+      "kp_ids": [
+        "英语语法-条件句"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyiftlrcngc",
+      "type": "multiple",
+      "stem": "以下哪些动词短语可以表示\"开始\"的意思？",
+      "options": [
+        "get down to",
+        "take up",
+        "set about",
+        "go on",
+        "break into"
+      ],
+      "answer": "[0,1,2]",
+      "explanation": "这道题考查动词短语的辨析能力。\"get down to\"、\"take up\"和\"set about\"都有\"开始做某事\"的意思，而\"go on\"表示\"继续\"，\"break into\"表示\"闯入/突然开始\"。这道题可以帮助学生掌握不同动词短语的相似但不同的含义。",
+      "kp_ids": [
+        "短语辨析"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyiftlifd98",
+      "type": "multiple",
+      "stem": "在英语语法中，以下哪些时态可以用于表达将来的动作？",
+      "options": [
+        "一般现在时",
+        "现在进行时",
+        "一般将来时",
+        "现在完成时",
+        "过去将来时"
+      ],
+      "answer": "[0,1,2,4]",
+      "explanation": "这道题考查学生对英语时态用法的理解。一般现在时可以表示按计划或安排将要发生的动作；现在进行时可以表示已经安排好的将来计划；一般将来时是表达将来的最直接方式；过去将来时是从过去某个时间点看将要发生的动作；而现在完成时通常不用于表达将来动作，除非与特定的将来时间状语连用。这道题有助于学生理解不同时态在表达将来动作时的不同用法。",
+      "kp_ids": [
+        "语法",
+        "时态"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyiftlvd4j7",
+      "type": "multiple",
+      "stem": "在英语情景交际中，以下哪些表达可以用于礼貌地请求帮助？",
+      "options": [
+        "Could you please help me?",
+        "I need your help.",
+        "Give me a hand.",
+        "Would you mind helping me?",
+        "Help me!"
+      ],
+      "answer": "[0,1,3]",
+      "explanation": "这道题考查学生对英语中礼貌用语的理解。\"Could you please help me?\"和\"Would you mind helping me?\"是非常礼貌的请求帮助的表达方式；\"I need your help\"也是相对礼貌的表达；而\"Give me a hand\"虽然用于请求帮助，但不如前几个正式；\"Help me!\"则直接且不够礼貌，通常在紧急情况下使用。这道题有助于学生在不同场合选择适当的表达方式。",
+      "kp_ids": [
+        "情景交际"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "q_mswyiftl2rimx",
+      "type": "multiple",
+      "stem": "以下哪些单词属于同义词？",
+      "options": [
+        "big",
+        "large",
+        "huge",
+        "tiny",
+        "small"
+      ],
+      "answer": "[0,1,2]",
+      "explanation": "这道题考查学生对词汇意义的掌握能力。\"big\"、\"large\"和\"huge\"都表示\"大的\"意思，只是程度不同，\"huge\"表示\"巨大的\"，程度最强；而\"tiny\"和\"small\"都表示\"小的\"意思。这道题有助于学生扩展词汇量，理解同义词之间的细微差别。",
+      "kp_ids": [
+        "词汇"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "q_mswyiftlvsfyw",
+      "type": "multiple",
+      "stem": "在英语语法中，以下哪些结构可以用于表达虚拟语气？",
+      "options": [
+        "if + 主语 + 过去式, 主语 + would + 动词原形",
+        "wish + 主语 + 过去式",
+        "as if + 主语 + 过去式",
+        "would rather + 主语 + 过去式",
+        "if + 主语 + 过去完成时, 主语 + would have + 过去分词"
+      ],
+      "answer": "[0,1,2,3,4]",
+      "explanation": "这道题考查学生对英语虚拟语气的掌握能力。if引导的与现在事实相反的虚拟条件句使用\"if + 主语 + 过去式, 主语 + would + 动词原形\"；与过去事实相反的虚拟条件句使用\"if + 主语 + 过去完成时, 主语 + would have + 过去分词\"；wish引导的虚拟句表示\"希望某事是事实但不是\"，使用\"wish + 主语 + 过去式\"；as if引导的虚拟句表示\"好像\"，使用\"as if + 主语 + 过去式\"；would rather表示\"宁愿\"，使用\"would rather + 主语 + 过去式\"。这道题有助于学生理解虚拟语气的不同表达方式。",
+      "kp_ids": [
+        "语法",
+        "虚拟语气"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "q_mswyiqyl1hqmj",
+      "type": "single",
+      "stem": "By the time we ______ to the cinema, the movie ______ already started.",
+      "options": [
+        "got/had",
+        "had got/had",
+        "got/was",
+        "had got/was"
+      ],
+      "answer": "[1]",
+      "explanation": "此题考查过去完成时和过去时的搭配。\"By the time\"引导的时间状语从句表示过去的某一时间点，主句动作发生在从句动作之前，因此主句应用过去完成时(had got)，而从句应用一般过去时。而电影已经开始，表示在过去某一时间点已经完成的动作，所以用过去完成时(had started)。",
+      "kp_ids": [
+        "时态搭配",
+        "过去完成时"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyiqyl8ouen",
+      "type": "single",
+      "stem": "If I ______ you, I would accept the invitation without hesitation.",
+      "options": [
+        "am",
+        "was",
+        "were",
+        "have been"
+      ],
+      "answer": "[2]",
+      "explanation": "此题考查虚拟语气中与现在事实相反的条件句。\"If I were you\"是固定表达，表示\"如果我是你\"，表示与现在事实相反的情况，be动词要用were，无论主语是什么人称。",
+      "kp_ids": [
+        "虚拟语气",
+        "条件句"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyiqyl9sf8f",
+      "type": "single",
+      "stem": "The committee ______ unable to reach a decision because of the disagreement among its members.",
+      "options": [
+        "were",
+        "was",
+        "have been",
+        "are"
+      ],
+      "answer": "[1]",
+      "explanation": "此题考查主谓一致。\"committee\"作为集合名词，在表示作为一个整体时，谓语动词用单数形式。这里委员会作为一个整体无法达成决定，所以用单数形式的was。",
+      "kp_ids": [
+        "主谓一致",
+        "集合名词"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyiqyl0urn9",
+      "type": "single",
+      "stem": "She is not used to ______ in such a noisy environment.",
+      "options": [
+        "work",
+        "working",
+        "worked",
+        "to work"
+      ],
+      "answer": "[1]",
+      "explanation": "此题考查\"be used to\"的用法。\"be used to\"表示\"习惯于\"，后接动名词形式，即\"be used to doing sth\"。这里虽然\"used\"和\"use\"拼写相同，但\"be used to\"是一个固定短语，与被动语态的\"be used to do\"(被用来做某事)不同。",
+      "kp_ids": [
+        "固定短语",
+        "动名词"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "q_mswyiqyly033t",
+      "type": "single",
+      "stem": "It's high time we ______ home now. It's getting late.",
+      "options": [
+        "go",
+        "went",
+        "will go",
+        "have gone"
+      ],
+      "answer": "[1]",
+      "explanation": "此题考查\"It's high time\"后的虚拟语气。\"It's high time\"表示\"早该做某事了\"，后接从句时，从句中的动词要用一般过去时，表示虚拟语气，表示\"现在应该做但还没做\"。",
+      "kp_ids": [
+        "虚拟语气",
+        "固定句型"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyiqylveqg2",
+      "type": "single",
+      "stem": "The government has taken measures ______ the spread of the disease.",
+      "options": [
+        "to prevent",
+        "preventing",
+        "prevented",
+        "prevent"
+      ],
+      "answer": "[0]",
+      "explanation": "此题考查不定式作目的状语的用法。\"take measures to do sth\"是固定搭配，表示\"采取措施做某事\"。不定式\"to prevent\"表示目的，即采取措施的目的是为了防止疾病的传播。",
+      "kp_ids": [
+        "不定式作目的状语",
+        "固定搭配"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "q_mswyiqyl1pkvf",
+      "type": "single",
+      "stem": "I would rather ______ at home than ______ to the party tonight.",
+      "options": [
+        "stay/go",
+        "to stay/to go",
+        "staying/going",
+        "stayed/went"
+      ],
+      "answer": "[0]",
+      "explanation": "此题考查\"would rather\"的用法。\"would rather\"后接动词原形，表示\"宁愿做某事\"。当\"would rather\"连接两个对比的动作时，两个动词都应用原形。这里\"宁愿待在家里而不愿去参加派对\"，所以两个动词都用原形。",
+      "kp_ids": [
+        "would",
+        "rather的用法",
+        "动词原形"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyiqylp6q3n",
+      "type": "single",
+      "stem": "Not only ______ the students but also the teacher ______ surprised by the result.",
+      "options": [
+        "were/was",
+        "was/were",
+        "were/were",
+        "was/was"
+      ],
+      "answer": "[0]",
+      "explanation": "此题考查\"not only...but also...\"连接主语时的主谓一致。\"Not only\"置于句首时，其后的主语谓语要用倒装形式，即\"were\"。而\"but also\"后的主语是单数\"the teacher\"，所以谓语用\"was\"。",
+      "kp_ids": [
+        "倒装句",
+        "主谓一致"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "q_mswyiqylhx7a9",
+      "type": "single",
+      "stem": "If you had told me earlier, I ______ you with your project.",
+      "options": [
+        "would help",
+        "would have helped",
+        "will help",
+        "had helped"
+      ],
+      "answer": "[1]",
+      "explanation": "此题考查与过去事实相反的虚拟语气。条件从句\"had told me earlier\"表示与过去事实相反，主句应用\"would + have + 过去分词\"的结构，表示\"我本会帮助你\"。",
+      "kp_ids": [
+        "虚拟语气",
+        "与过去事实相反的条件句"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyiqylik3pu",
+      "type": "single",
+      "stem": "The manager insisted that all employees ______ the new safety regulations.",
+      "options": [
+        "must follow",
+        "follow",
+        "followed",
+        "should have followed"
+      ],
+      "answer": "[1]",
+      "explanation": "此题考查\"insist\"后的虚拟语气。\"insist\"表示\"坚持要求\"时，其后的that从句要用\"(should) + 动词原形\"的虚拟语气形式。这里\"坚持要求所有员工遵守新的安全规定\"，所以用\"follow\"。",
+      "kp_ids": [
+        "虚拟语气",
+        "insist后的从句"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyiy70wjxyv",
+      "type": "case",
+      "stem": "请分析王华的邮件中存在的语言错误，包括语法、词汇选择和表达习惯等方面的问题，并提供修改后的完整邮件。",
+      "material": "王华是一名中国高中生，正在准备国际交流项目。他在给外国朋友的电子邮件中写道：\"Dear Tom, I'm very exciting to tell you that I will visit your city next month. I have borrowed some books about your country from the library yesterday. I hope we can have a good time together. If you have free time, could you please give me some advices about the places I should visit? When I arrived at your airport, I will call you immediately. Looking forward to receive your reply.\"",
+      "answer": "1. 语法错误：\n   - \"I'm very exciting\" 应改为 \"I'm very excited\"（exciting表示\"令人兴奋的\"，excited表示\"感到兴奋的\"）\n   - \"I have borrowed...yesterday\" 应改为 \"I borrowed...yesterday\"（现在完成时不与特定过去时间连用）\n   - \"When I arrived...I will call\" 应改为 \"When I arrive...I will call\"（时间状语从句中用一般现在时表将来）\n   - \"Looking forward to receive\" 应改为 \"Looking forward to receiving\"（to是介词，后接动名词）\n\n2. 词汇错误：\n   - \"give me some advices\" 应改为 \"give me some advice\"（advice是不可数名词，没有复数形式）\n\n3. 表达习惯问题：\n   - 邮件结尾缺少适当的结束语和署名\n   - 整体语气可以更加礼貌和自然\n\n修改后的邮件：\n\"Dear Tom,\nI'm very excited to tell you that I will visit your city next month. I borrowed some books about your country from the library yesterday. I hope we can have a good time together. If you have free time, could you please give me some advice about the places I should visit? When I arrive at your airport, I will call you immediately. Looking forward to receiving your reply.\n\nBest wishes,\nWang Hua\"",
+      "explanation": "这道题考察了学生对英语语法（时态使用、动名词形式）、词汇（形容词选择、不可数名词）以及英语邮件写作格式的综合理解能力。学生在分析案例时需要识别不同类型的语言错误，并理解这些错误背后的语言规则和文化习惯。通过修改建议，学生能够学习如何在实际交际中正确运用这些语言知识，写出得体的英文邮件。",
+      "kp_ids": [
+        "英语形容词用法、时态一致性、动名词结构、不可数名词、英语邮件写作规范"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "q_mswyj4xhoxjyq",
+      "type": "case",
+      "stem": "请阅读以下商务邮件，分析其中存在的语言错误和不当表达，并提供修改后的完整邮件。",
+      "material": "Dear Mr. Johnson,\n\nI am writing to concerning our meeting next Monday. I am very regret that I have to inform you that I will not be able to attend because I have a important appointment with my dentist.\n\nI apologize for the inconvenience this may cause. I would like to suggest to reschedule our meeting to next Wednesday at 3 PM. Please let me know if this time is convenience for you.\n\nI look forward to hearing your soon.\n\nBest regards,\nLi Ming",
+      "answer": "1. 语言错误分析：\n   - \"writing to concerning\" 应改为 \"writing concerning\" 或 \"writing to you about\"\n   - \"very regret\" 应改为 \"regret to tell\" 或 \"sorry to tell\"\n   - \"a important\" 应改为 \"an important\"（元音音素前用an）\n   - \"suggest to reschedule\" 应改为 \"suggest rescheduling\" 或 \"suggest that we reschedule\"\n   - \"convenience for you\" 应改为 \"convenient for you\"\n   - \"hearing your soon\" 应改为 \"hearing from you soon\"\n\n2. 不当表达分析：\n   - 整体语气过于正式，显得不够友好\n   - 表达方式有些生硬，不够自然流畅\n\n修改后的邮件：\nDear Mr. Johnson,\n\nI am writing concerning our meeting scheduled for next Monday. I regret to inform you that I will be unable to attend due to an important dental appointment.\n\nI apologize for any inconvenience this may cause. I would like to suggest rescheduling our meeting to next Wednesday at 3 PM. Please let me know if this time is convenient for you.\n\nI look forward to hearing from you soon.\n\nBest regards,\nLi Ming",
+      "explanation": "",
+      "kp_ids": [
+        "商务英语写作、语法错误修正、词汇搭配、语体选择"
+      ],
+      "difficulty": 2
+    }
+  ],
+  "created_at": 1786954432950
+}
