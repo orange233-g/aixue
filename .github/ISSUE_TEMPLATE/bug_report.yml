@@ -1,0 +1,77 @@
+name: Bug 报告
+description: 报告一个可复现的问题
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！提交前请先搜索是否已有相同 Issue。
+        **请不要在 Issue 里粘贴 API Key、keystore、私人学习内容或完整日志原文（请先脱敏）。**
+        安全问题请按 [SECURITY.md](https://github.com/OWNER/REPO/blob/main/SECURITY.md) 私下上报。
+  - type: input
+    id: version
+    attributes:
+      label: 版本
+      description: 应用内「我的」页底部显示的版本号，或你构建的 commit
+      placeholder: "1.0.0 / commit 45e9274"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: 运行平台
+      options:
+        - Android（真机）
+        - Android（模拟器）
+        - Web（开发模式 npm run dev）
+        - Web（生产构建）
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 问题模块
+      options:
+        - 生题 / AI 对话
+        - 学习库 / 刷题 / 复习 / 错题本
+        - 知识库 / 语义检索
+        - 向量模型（内置 / 导入）
+        - AI 设置 / 用量统计
+        - 导入 / 导出 / 备份
+        - Android 打包 / 原生能力
+        - 其它
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 请给出从启动开始的最短步骤；涉及文件时可说明文件类型/大小（不要上传真实私人资料）
+      placeholder: |
+        1. 打开…
+        2. 点击…
+        3. 期望…，实际…
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望结果与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志 / 截图（已脱敏）
+      description: 可附「我的 → 运行日志」导出的片段；请删除 Key、路径、个人内容
+      render: text
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 我已搜索过现有 Issue，确认不是重复问题
+          required: true
+        - label: 内容已脱敏，不包含 API Key / 私人资料
+          required: true

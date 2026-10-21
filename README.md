@@ -4,6 +4,14 @@
 
 Aixue is a local-first quiz generator and study app built with React + Capacitor. Describe what you want to learn, let any OpenAI-compatible LLM draft the questions, then drill yourself with spaced repetition. All user data stays on the device (IndexedDB) — there is no backend service.
 
+## 截图
+
+<p align="center">
+  <img src="docs/screenshots/home.png" width="240" alt="首页" />
+  <img src="docs/screenshots/generate.png" width="240" alt="快捷生成" />
+  <img src="docs/screenshots/embed-models.png" width="240" alt="向量模型与导入" />
+</p>
+
 ## 功能
 
 - **对话式生题**：用自然语言描述主题、题量、题型与难度，AI 逐轮收集需求并确认方案后生成；支持快捷生成弹窗、流式逐题上屏、批次并发调度与限流自适应、中断续跑与缺口补齐；生成结果先进入预览校验，异常题可单独编辑或一键剔除。
@@ -100,6 +108,15 @@ npm run android:release   # 正式 release（需先配置签名环境变量，�
 
 - [PRIVACY.md](PRIVACY.md)：数据本地保存、无遥测、无自建服务端；只有在调用 AI 时才会把所选内容发送给你配置的模型厂商。
 - [SECURITY.md](SECURITY.md)：漏洞上报方式与密钥处理规范。
+
+## 参与贡献
+
+欢迎提交 Issue 与 Pull Request。开始前请阅读：
+
+- [CONTRIBUTING.md](CONTRIBUTING.md)：开发环境、测试命令与提交前自检；
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)：社区行为准则；
+- [SECURITY.md](SECURITY.md)：安全漏洞请走私下渠道，不要公开提交；
+- [CHANGELOG.md](CHANGELOG.md)：版本变更记录。
 
 ## 许可证
 

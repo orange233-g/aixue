@@ -1,0 +1,46 @@
+name: 功能建议
+description: 提出新功能或改进建议
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请先说明要解决的真实问题，再描述方案；这样更容易判断是否值得做、是否有更轻的做法。
+  - type: textarea
+    id: problem
+    attributes:
+      label: 你遇到的问题
+      description: 当前是怎么用的、卡在哪里、影响多大
+      placeholder: 例如：刷题时想按章节标记掌握度，但现在只能整本记录…
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 期望的方案
+      description: 交互/数据/界面怎么变；如果考虑过替代方案也可以写
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 相关模块
+      options:
+        - 生题 / AI 对话
+        - 学习库 / 刷题 / 复习 / 错题本
+        - 知识库 / 语义检索
+        - 向量模型
+        - 设置 / 用量统计
+        - 导入 / 导出 / 备份
+        - Android / 原生
+        - 其它
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 我已搜索过现有 Issue / 文档，确认不是已有功能或重复建议
+          required: true
