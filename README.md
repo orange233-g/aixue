@@ -9,7 +9,7 @@ Aixue is a local-first quiz generator and study app built with React + Capacitor
 - **对话式生题**：用自然语言描述主题、题量、题型与难度，AI 逐轮收集需求并确认方案后生成；支持快捷生成弹窗、流式逐题上屏、批次并发调度与限流自适应、中断续跑与缺口补齐；生成结果先进入预览校验，异常题可单独编辑或一键剔除。
 - **九种题型**：单选、多选、判断、填空、匹配、排序、简答、案例分析、论文；填空支持同义词组，匹配/排序部分给分，主观题自评。
 - **学习与复习**：学习本（题包）与分类管理、章节顺序/随机刷题、成绩复盘与逐题解析、错题本（标记已掌握/移出/重练）、今日复习（SRS 间隔重复）。
-- **本地知识库**：导入 txt/md/csv/代码/docx/xlsx/odt 或直接写文字笔记，自动清洗分块；支持 **BM25 关键词检索**与两种内置向量模型的**语义检索**（bge-small-zh-v1.5 / Qwen3-Embedding-0.6B），带召回测试与全屏阅读器（目录/书签/想法、夜间模式、字号与四种背景、三种翻页动画）。
+- **本地知识库**：导入 txt/md/csv/代码/docx/xlsx/odt 或直接写文字笔记，自动清洗分块；支持 **BM25 关键词检索**与**语义检索**（内置 bge-small-zh-v1.5，可按需导入 Qwen3-Embedding-0.6B），带召回测试与全屏阅读器（目录/书签/想法、夜间模式、字号与四种背景、三种翻页动画）。
 - **AI 供应商**：内置 9 家 OpenAI 兼容适配器（DeepSeek、智谱 AI、腾讯混元、Kimi、MiniMax、OpenAI 兼容、小米 MiMo、火山方舟、通义千问），支持自定义 API 地址、拉取模型列表、连通性测试、思考开关与峰谷计价；新增供应商只需在 `src/ai/providers/manifest.ts` 登记一条。
 - **用量统计**：按时间窗、板块、模型、按天统计 Token 与花费，含缓存命中率。
 - **导入与导出**：JSON / Markdown 题包导入（含重复检测与坏题明细）、学习本导出 Markdown、知识库资料导出、全量数据备份与恢复（**备份不包含 API Key**）。
@@ -41,12 +41,12 @@ src/
 scripts/               构建准备、密钥扫描、Android 环境检查、测试数据生成
 android/               Capacitor Android 工程
 docs/                  对外文档（内部过程文档在 docs/internal/，不入库）
-public/models/         内置向量模型放置目录（模型文件不入库，见下文）
+public/models/         内置向量模型放置目录（仅 bge 随包分发，模型文件不入库）
 ```
 
 ## 快速开始
 
-环境要求：Node 20+（开发使用 Node 24）、npm 10+。
+环境要求：Node 20.19+ 或 22.12+（Vite 8 的引擎要求；开发使用 Node 24）、npm 10+。
 
 ```bash
 npm ci                  # 安装依赖
@@ -68,16 +68,14 @@ npm run secret:scan     # 密钥扫描门禁（需先安装 gitleaks，fail-clos
 - 支持自定义 API 地址（保存前会做协议与主机校验，并明确提示 Key 将被发送到哪个地址）。
 - 浏览器开发环境下直连厂商 API 会遇到 CORS，因此 dev server 提供了一个**仅开发环境**使用本地代理 `/__ai`：带厂商网关 host 精确白名单（由 `src/ai/providers/manifest.ts` 单源推导）、拒绝内网/环回地址与裸 IP、限制请求体与并发、逐跳校验重定向，防 SSRF。可用 `AI_PROXY_ALLOW_HOSTS` 追加自定义 host。打包后的 Android 应用走 WebView 直连，不需要代理。
 
-## 内置向量模型（可选）
+## 向量模型
 
-知识库的语义检索依赖随应用内置的 ONNX 向量模型。模型体积较大（bge ≈ 90 MB，Qwen3 ≈ 596 MB），**不随仓库分发**，需要自行准备：
+知识库的语义检索使用端侧 ONNX 向量模型，分两种来源：
 
-- 放置路径：`public/models/bge/` 与 `public/models/qwen3/`
-- 所需文件清单与 SHA256 校验值见 [src/ai/embed/registry.ts](src/ai/embed/registry.ts)（加载时会强校验 SHA256）
-- 未放置模型时：建库请选择 **BM25 关键词检索**，其余功能不受影响；选择向量模型会因本地资产缺失而失败
-- 模型文件许可：bge-small-zh-v1.5 由北京智源人工智能研究院（BAAI）发布（MIT），Qwen3-Embedding-0.6B 由阿里通义千问团队发布（Apache-2.0）
+- **内置（默认）**：bge-small-zh-v1.5（约 95 MB，MIT 许可，BAAI）随 app 分发，开箱即用。
+- **可选导入**：Qwen3-Embedding-0.6B（约 614 MB，Apache-2.0，阿里通义千问）体积较大，不随 app 分发。需要时从 GitHub Releases 下载 `qwen3-embedding-0.6b.aixue-model`，在「我的 → 向量模型 → 添加模型」选择该文件导入（只保存到本机，可随时删除）。
 
-详细步骤见 [docs/本地部署与模型准备.md](docs/本地部署与模型准备.md)。
+模型包格式、打包脚本（`npm run pack:model`）与发布步骤见 [docs/模型包与导入.md](docs/模型包与导入.md)。即使不导入任何模型，也可以选择 **BM25 关键词检索**，其余功能不受影响。
 
 ## Android 构建
 
@@ -92,7 +90,7 @@ npm run android:release   # 正式 release（需先配置签名环境变量，�
 
 ## 已知限制
 
-- **正式 release 需要自行准备 Android SDK、JDK 17+ 与 keystore**。并且 `scripts/check-android-env.mjs` 目前检查的环境变量名（`WENXUE_KEYSTORE_*`）与 `android/app/build.gradle` 实际读取的（`AIXUE_KEYSTORE_*`）不一致，正式发布前需先统一，否则前置检查会误报缺失。
+- **正式 release 需要自行准备 Android SDK、JDK 17+ 与 keystore**（`npm run android:release` 会先跑环境前置检查，缺签名要素即 fail-closed）。
 - 语义检索模型不随仓库分发（见上一节）。
 - 应用没有自建服务端：数据只在本机浏览器/应用内，卸载应用或清除站点数据会一并删除（请先使用数据管理里的导出/备份）。
 - 开发模式下包含仅供调试的模拟手机外框与本地日志落盘中间件，生产构建不包含。
@@ -118,4 +116,4 @@ npm run android:release   # 正式 release（需先配置签名环境变量，�
 | [docs/AI知识库原理.md](docs/AI知识库原理.md) | 知识库分块、索引与检索原理 |
 | [docs/知识库索引与检索说明.md](docs/知识库索引与检索说明.md) | 索引生成与检索通道说明 |
 | [docs/九题型导入示例.md](docs/九题型导入示例.md) | 题包 JSON / Markdown 导入格式示例 |
-| [docs/embed-models.example.json](docs/embed-models.example.json) | 向量模型清单模板（文件清单 + SHA256 生成格式） |
+| [docs/模型包与导入.md](docs/模型包与导入.md) | 向量模型包格式、打包、发布与导入说明 |

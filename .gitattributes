@@ -1,0 +1,14 @@
+# 统一换行与二进制识别（Windows/macOS/Linux 协作）
+* text=auto eol=lf
+
+# 二进制文件不做行尾转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.jar binary
+*.onnx binary
+*.apk binary
+*.aab binary
+*.aixue-model binary
+*.woff2 binary

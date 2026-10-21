@@ -1,6 +1,8 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { openDB } from 'idb'
-import { MODEL_FILES, gcEmbedCaches } from './storage'
+import { gcEmbedCaches, isModelCached, modelFileNames, writeModelFile } from './storage'
+import { __resetImportedModelsForTest, addImportedModel } from './registry'
+import type { EmbedModel } from './types'
 
 const DB_NAME = 'ai-embed-files'
 
@@ -13,40 +15,68 @@ function openStore() {
   })
 }
 
-async function seedAll(modelId: string) {
-  const db = await openStore()
-  for (const n of MODEL_FILES[modelId]) {
-    await db.put('files', { key: `${modelId}/${n}`, blob: new Blob(['x']) })
-  }
-}
-
 async function clearAll() {
   const db = await openStore()
   await db.clear('files')
 }
 
-describe('storage：模型缓存自动清理（6.90 全自动生命周期）', () => {
+async function seed(modelId: string) {
+  for (const n of modelFileNames(modelId)) {
+    await writeModelFile(modelId, n, new Blob(['x']))
+  }
+}
+
+const importedModel = (id = 'imported-embed'): EmbedModel => ({
+  id,
+  name: '导入模型',
+  developer: '测试',
+  description: '测试用',
+  license: 'MIT',
+  dim: 8,
+  pooling: 'cls',
+  normalize: true,
+  maxTokens: 64,
+  tokenizer: 'wordpiece',
+  weight: 'onnx/model.onnx',
+  files: [{ name: 'onnx/model.onnx', size: 1, sha256: 'b'.repeat(64) }],
+  note: '测试',
+  imported: true,
+})
+
+describe('storage：模型缓存自动清理', () => {
   beforeEach(async () => {
+    __resetImportedModelsForTest()
     await clearAll()
   })
 
-  it('无绑定的模型缓存被清理，绑定的保留', async () => {
-    await seedAll('bge-small-zh-v1.5')
-    await seedAll('qwen3-embedding-0.6b')
+  it('无绑定的内置模型缓存被清理，绑定的保留', async () => {
+    await seed('bge-small-zh-v1.5')
+    expect(await isModelCached('bge-small-zh-v1.5')).toBe(true)
     const removed = await gcEmbedCaches(['bge-small-zh-v1.5'])
-    expect(removed).toEqual(['qwen3-embedding-0.6b'])
+    expect(removed).toEqual([])
+    expect(await isModelCached('bge-small-zh-v1.5')).toBe(true)
+
+    const removed2 = await gcEmbedCaches([])
+    expect(removed2).toEqual(['bge-small-zh-v1.5'])
+    expect(await isModelCached('bge-small-zh-v1.5')).toBe(false)
   })
 
-  it('绑定为空：全部缓存清光（都不再被使用）', async () => {
-    await seedAll('bge-small-zh-v1.5')
-    await seedAll('qwen3-embedding-0.6b')
-    const removed = await gcEmbedCaches([])
-    expect(removed.sort()).toEqual(['bge-small-zh-v1.5', 'qwen3-embedding-0.6b'])
-  })
-
-  it('未缓存的模型跳过（不报错），GC 幂等可重复执行', async () => {
-    await seedAll('bge-small-zh-v1.5')
+  it('GC 幂等：二次执行无残留可清', async () => {
+    await seed('bge-small-zh-v1.5')
     expect(await gcEmbedCaches([])).toEqual(['bge-small-zh-v1.5'])
-    expect(await gcEmbedCaches([])).toEqual([]) // 二次执行无残留可清
+    expect(await gcEmbedCaches([])).toEqual([])
+  })
+
+  it('导入模型是用户主动资产：即使没有知识库绑定也不被自动清理', async () => {
+    await addImportedModel(importedModel())
+    await seed('imported-embed')
+    const removed = await gcEmbedCaches([])
+    expect(removed).toEqual([])
+    expect(await isModelCached('imported-embed')).toBe(true)
+  })
+
+  it('未知模型没有文件清单，不参与缓存判断', async () => {
+    expect(modelFileNames('not-exist')).toEqual([])
+    expect(await isModelCached('not-exist')).toBe(false)
   })
 })

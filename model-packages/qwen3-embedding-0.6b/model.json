@@ -1,0 +1,23 @@
+{
+  "model": {
+    "id": "qwen3-embedding-0.6b",
+    "name": "Qwen3-Embedding-0.6B（进阶）",
+    "developer": "阿里巴巴通义千问团队",
+    "description": "通义千问 2025 年开源的新一代文本表征模型，发布时登顶 MTEB 多语言检索权威榜单（系列 70.58 分）。支持 100+ 语言、32K 长上下文、1024 维向量，召回能力强，适合多语言与长文档知识库；体积较大，建索引较慢。",
+    "license": "Apache-2.0",
+    "dim": 1024,
+    "pooling": "last_token",
+    "normalize": true,
+    "maxTokens": 32768,
+    "queryInstruct": "Given a web search query, retrieve relevant passages that answer the query",
+    "tokenizer": "bpe",
+    "weight": "onnx/model_quantized.onnx",
+    "note": "能力强、多语言、32K 上下文；体积大（约 614MB），手机端较慢，建议桌面/进阶用户"
+  },
+  "files": [
+    "config.json",
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "onnx/model_quantized.onnx"
+  ]
+}

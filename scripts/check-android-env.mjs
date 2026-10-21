@@ -77,10 +77,10 @@ try {
 
 // ---- release 签名：android:release 的硬性前置（V4-S01 补全密码/别名）----
 // 该脚本仅由 android:release 入口调用，不受个人/debug 构建影响，故可在此强制执行完整签名要素。
-const keystorePath = getKey('WENXUE_KEYSTORE_PATH')
-const storePass = getKey('WENXUE_KEYSTORE_PASS')
-const alias = getKey('WENXUE_KEY_ALIAS')
-const keyPass = getKey('WENXUE_KEY_PASS')
+const keystorePath = getKey('AIXUE_KEYSTORE_PATH')
+const storePass = getKey('AIXUE_KEYSTORE_PASS')
+const alias = getKey('AIXUE_KEY_ALIAS')
+const keyPass = getKey('AIXUE_KEY_PASS')
 
 if (keystorePath && existsSync(keystorePath)) {
   note('ok', `release keystore 存在：${keystorePath}`)
@@ -89,17 +89,17 @@ if (keystorePath && existsSync(keystorePath)) {
 } else {
   note(
     'fail',
-    '未配置 WENXUE_KEYSTORE_PATH。android:release 已 fail-closed：缺少正式 keystore 时 Gradle 会直接失败，不会用 debug 签名冒充 release。个人自装请用 android:personal（debug 签名），正式发布请提供 keystore 路径/密码/别名。'
+    '未配置 AIXUE_KEYSTORE_PATH。android:release 已 fail-closed：缺少正式 keystore 时 Gradle 会直接失败，不会用 debug 签名冒充 release。个人自装请用 android:personal（debug 签名），正式发布请提供 keystore 路径/密码/别名。'
   )
 }
 // 只有提供了 keystore 时才进一步校验密码/别名；完全没有 keystore 时上面已 fail。
 if (keystorePath && existsSync(keystorePath)) {
-  if (!storePass) note('fail', '缺少 WENXUE_KEYSTORE_PASS（keystore 存储密码）')
-  else note('ok', 'WENXUE_KEYSTORE_PASS 已配置')
-  if (!alias) note('fail', '缺少 WENXUE_KEY_ALIAS（keystore 密钥别名）')
-  else note('ok', 'WENXUE_KEY_ALIAS 已配置')
-  if (!keyPass) note('fail', '缺少 WENXUE_KEY_PASS（密钥密码）')
-  else note('ok', 'WENXUE_KEY_PASS 已配置')
+  if (!storePass) note('fail', '缺少 AIXUE_KEYSTORE_PASS（keystore 存储密码）')
+  else note('ok', 'AIXUE_KEYSTORE_PASS 已配置')
+  if (!alias) note('fail', '缺少 AIXUE_KEY_ALIAS（keystore 密钥别名）')
+  else note('ok', 'AIXUE_KEY_ALIAS 已配置')
+  if (!keyPass) note('fail', '缺少 AIXUE_KEY_PASS（密钥密码）')
+  else note('ok', 'AIXUE_KEY_PASS 已配置')
 }
 
 // 从 gradle.properties 读取同名键（keyname 或 keyname=value）

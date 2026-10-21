@@ -1,18 +1,28 @@
-import { defineConfig, type Plugin } from 'vitest/config'
+import { configDefaults, defineConfig, type Plugin } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import { Readable } from 'stream'
 import { pipeline } from 'stream/promises'
 import { appendFile, stat, writeFile } from 'fs/promises'
-import { copyFileSync, mkdirSync, readdirSync } from 'fs'
+import { copyFileSync, mkdirSync, readdirSync, readFileSync } from 'fs'
 import { join } from 'path'
 import { fileURLToPath } from 'url'
 import { providerHostSuffixes } from './src/ai/providers/manifest.ts'
+
+// 版本号唯一事实源：package.json。构建时注入 __APP_VERSION__，
+// UI（我的页）与 Android versionName（build.gradle 读同一文件）保持同源。
+const pkgVersion = (
+  JSON.parse(readFileSync(fileURLToPath(new URL('./package.json', import.meta.url)), 'utf8')) as {
+    version: string
+  }
+).version
 
 // base: './' 保证 Capacitor 通过本地 scheme 加载资源时路径正确
 export default defineConfig({
   root: fileURLToPath(new URL('.', import.meta.url)),
   plugins: [react(), noCacheDev(), aiDevProxy(), logDevSink(), cspPlugin(), copyOrtWasm()],
   base: './',
+  // 全局常量：UI 里直接引用 __APP_VERSION__（类型声明见 src/vite-env.d.ts）
+  define: { __APP_VERSION__: JSON.stringify(pkgVersion) },
   // V-EMB：onnxruntime-web 不做预构建——预构建后其内部动态 import 的 wasm 后端 URL 带 ?import 参数，
   // 访问 public/ort 文件返回 500（实测 jsep.mjs?import=500）；exclude 后走原生 ESM，动态 import 正常。
   cacheDir: 'node_modules/.vite-cache',
@@ -21,7 +31,14 @@ export default defineConfig({
       // 项目根目录下的大目录（gradle-cache 5GB+ / model-pack 687MB / dist 763MB）不在 Vite 默认忽略
       // 列表内，chokidar 全量扫描会让 dev server 事件循环被占满（CPU 100%、请求全部超时卡死），
       // 显式排除避免 watcher 扫描这些构建产物/模型缓存目录
-      ignored: ['**/gradle-cache/**', '**/model-pack/**', '**/dist/**', '**/node_modules/.vite-cache/**'],
+      ignored: [
+        '**/gradle-cache/**',
+        '**/model-pack/**',
+        '**/dist/**',
+        '**/node_modules/.vite-cache/**',
+        // 编辑器/工具写入时产生的临时目录（曾触发 chokidar EBUSY 把 dev server 打崩）
+        '**/*.tmpdir/**',
+      ],
     },
   },
   optimizeDeps: {
@@ -41,6 +58,9 @@ export default defineConfig({
     // 生产配置不需要 dev 中间件，串行跑避免共享 DB 名的升级争用
     pool: 'forks',
     testTimeout: 20000,
+    // 真实模型评估用例（src/test/eval/**）依赖本地 ONNX 权重（model-pack/、public/models/，均不入库），
+    // 干净克隆下无法运行；默认排除，需要时用 AIXUE_EVAL=1 npm test 显式开启。
+    exclude: [...configDefaults.exclude, ...(process.env.AIXUE_EVAL === '1' ? [] : ['src/test/eval/**'])],
   },
 })
 
@@ -115,6 +135,8 @@ function noCacheDev(): Plugin {
 function copyOrtWasm(): Plugin {
   return {
     name: 'copy-ort-wasm',
+    // 只在 build 的产物阶段执行：dev 直接 serve src/assets，测试也不应改写 dist
+    apply: 'build',
     closeBundle() {
       const srcDir = join(process.cwd(), 'src/assets/ort-wasm')
       const dstDir = join(process.cwd(), 'dist/assets/ort-wasm')

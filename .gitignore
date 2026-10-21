@@ -24,9 +24,12 @@ _capture-raw.txt
 _codex_backup_*/
 cdp*.mjs
 speed.mjs
-scripts/_*.mjs
-scripts/_*.ts
+scripts/_*
 scripts/test-real-*.mjs
+
+# AI 编码工具产生的本地配置（含本机路径/技能缓存，与项目无关）
+.agents/
+skills-lock.json
 
 # 本机模拟器调试截图（含学习内容），不随源码发布
 android/em_*.png
@@ -56,6 +59,7 @@ public/models/
 public/ort-wasm/
 
 # 大体积构建缓存 / 本地模型包（本地生成，不入库）
+release/
 gradle-cache/
 model-pack/
 node_modules/.vite-cache

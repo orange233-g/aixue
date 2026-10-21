@@ -24,6 +24,11 @@ interface LoadedModel {
 
 const sessionCache = new Map<string, Promise<LoadedModel>>()
 
+/** 释放某模型的推理会话缓存（删除模型时调用；下次使用会重新从 IndexedDB 加载） */
+export function disposeModelSession(modelId: string): void {
+  sessionCache.delete(modelId)
+}
+
 function loadKvMeta(buf: ArrayBuffer): { heads: number; headDim: number } | undefined {
   try {
     const cfg = JSON.parse(new TextDecoder().decode(buf)) as {

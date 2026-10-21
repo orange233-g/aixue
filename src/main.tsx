@@ -5,6 +5,7 @@ import './styles.css'
 import './theme-v2.css'
 import { log } from './utils/log'
 import { usePreferences } from './stores/usePreferenceStore'
+import { hydrateImportedModels } from './ai/embed/registry'
 
 // 全局兜底：未捕获异常 / 未处理 Promise 拒绝都落日志，方便改 bug 时直接翻日志定位
 window.addEventListener('error', (e) => {
@@ -39,12 +40,16 @@ void (async () => {
   }
 })()
 
-// 换肤偏好先于首绘读取（6.86）：否则暗色用户每次冷启动都先闪一屏米白再变黑。
-// 800ms 兜底——IndexedDB 异常/极慢时宁可回退默认色也要正常出 UI。
+// 首绘前要就绪的两件事：
+// - 换肤偏好（6.86）：否则暗色用户每次冷启动都先闪一屏米白再变黑；800ms 兜底，IDB 异常也不会卡住 UI。
+// - 导入的向量模型元数据：getEmbedModel 在渲染期同步调用（建库弹窗/知识库详情），必须先读回内存。
 const root = createRoot(document.getElementById('root')!)
-void Promise.race([
-  usePreferences.getState().load().catch(() => { /* 偏好读失败按默认色出 UI */ }),
-  new Promise((r) => setTimeout(r, 800)),
+void Promise.all([
+  Promise.race([
+    usePreferences.getState().load().catch(() => { /* 偏好读失败按默认色出 UI */ }),
+    new Promise((r) => setTimeout(r, 800)),
+  ]),
+  hydrateImportedModels().catch(() => { /* 导入模型读失败按无导入模型出 UI */ }),
 ]).then(() => {
   root.render(
     <StrictMode>
@@ -53,8 +58,8 @@ void Promise.race([
   )
 })
 
-// 向量模型缓存自动清理兜底（6.90 全自动生命周期）：清理「不再被任何知识库绑定」的模型缓存，
-// 释放存储空间（删库时已即时清过一次，此处覆盖漏网场景）。后台执行不阻塞启动。
+// 向量模型缓存自动清理兜底（6.90 全自动生命周期）：清理「不再被任何知识库绑定」的**内置**模型缓存，
+// 释放存储空间；用户导入的模型是主动资产，不参与自动清理（只能显式删除）。后台执行不阻塞启动。
 void (async () => {
   try {
     const { dbKB } = await import('./db')

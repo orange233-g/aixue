@@ -29,14 +29,14 @@
 
 `src/assets/ort.min.mjs` 与构建时由 `scripts/copy-ort.mjs` 从 `node_modules/onnxruntime-web/dist` 复制的 wasm 后端文件，同样遵循 onnxruntime 的 MIT 许可。
 
-## 内置向量模型（不随仓库分发，由使用者自行放置）
+## 向量模型
 
 | 模型 | 开发者 | 许可 | 说明 |
 |---|---|---|---|
 | bge-small-zh-v1.5 | 北京智源人工智能研究院（BAAI） | MIT | 默认推荐，约 90 MB，512 维，中文检索效果好、手机端友好 |
 | Qwen3-Embedding-0.6B | 阿里巴巴通义千问团队 | Apache-2.0 | 进阶选项，约 596 MB（量化版），1024 维，支持 100+ 语言与 32K 上下文 |
 
-模型权重不包含在本仓库中。使用者需自行从模型发布方获取对应文件并放置到 `public/models/`（所需文件与 SHA256 校验值见 `src/ai/embed/registry.ts`），使用即表示同意遵守相应模型的许可条款。
+完整的模型许可原文见 `third-party/`（bge）与模型包内 `LICENSE` / `NOTICE`（Qwen3）。模型权重不包含在本仓库中：bge-small-zh-v1.5 随应用分发（`public/models/bge/`，文件清单与 SHA256 见 `src/ai/embed/registry.ts`）；Qwen3-Embedding-0.6B 以独立模型包（`.aixue-model`）发布，由用户在应用内导入，使用即表示同意遵守相应模型的许可条款。
 
 ## 厂商名称与商标
 

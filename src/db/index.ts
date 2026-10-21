@@ -1,7 +1,7 @@
 import { openDB, type DBSchema, type IDBPDatabase, type IDBPTransaction } from 'idb'
 import type { Pack, Session, LearningState, UsageRecord, WrongRecord, AnswerRecord, KBDoc } from '../types'
 
-interface WenxueDB extends DBSchema {
+interface AixueDB extends DBSchema {
   packs: {
     key: string
     value: Pack
@@ -73,16 +73,16 @@ interface WenxueDB extends DBSchema {
 const DB_NAME = 'ai-xue'
 const DB_VERSION = 9
 
-let dbPromise: Promise<IDBPDatabase<WenxueDB>> | null = null
+let dbPromise: Promise<IDBPDatabase<AixueDB>> | null = null
 
 /**
  * 版本迁移（见 PRD 11.4）：只增不改，按 oldVersion 分步迁移。
  * 字段变更通过读取时兼容（旧数据缺字段给默认值），避免破坏性迁移。
  * V1 → V2：packs 新增 source 字段（类型可选，读取时默认 'ai'，无需改写存量数据）。
  */
-export function getDB(): Promise<IDBPDatabase<WenxueDB>> {
+export function getDB(): Promise<IDBPDatabase<AixueDB>> {
   if (!dbPromise) {
-    dbPromise = openDB<WenxueDB>(DB_NAME, DB_VERSION, {
+    dbPromise = openDB<AixueDB>(DB_NAME, DB_VERSION, {
       blocked() {
         // 升级被其他标签页的旧连接阻塞时，等待其关闭（见 PRD 11.4）
         console.warn('[db] upgrade blocked by another open connection, waiting...')
@@ -513,12 +513,12 @@ export const dbKBVectors = {
   },
 }
 
-export type { WenxueDB }
+export type { AixueDB }
 export { DB_NAME, DB_VERSION }
 
 /** 刷题提交专用单事务类型（V2-F02 / V2-I01）：learning + wrongs + answers + config 同一 readwrite 事务，
  *  业务层在其中读旧值→算新值→写入，任一步失败整体回滚，杜绝多点写造成的半提交/重复累计。 */
-export type QuizSubmissionTx = IDBPTransaction<WenxueDB, ['learning', 'wrongs', 'wrongs_v2', 'answers', 'config'], 'readwrite'>;
+export type QuizSubmissionTx = IDBPTransaction<AixueDB, ['learning', 'wrongs', 'wrongs_v2', 'answers', 'config'], 'readwrite'>;
 
 /**
  * 打开刷题提交单事务并执行 fn：全部成功才提交，任一异常 abort 回滚。

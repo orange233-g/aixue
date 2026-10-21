@@ -220,7 +220,7 @@ export default function MePage() {
         </div>
         <button className="menu-row" onClick={() => navigate('embed-settings', true)}>
           <span className="flex-1">向量模型</span>
-          <span className="card-sub">内置双模型介绍</span>
+          <span className="card-sub">内置 bge · 可导入 Qwen3</span>
           <span className="card-sub">›</span>
         </button>
       </div>
@@ -299,7 +299,7 @@ export default function MePage() {
       )}
 
       <div className="card" style={{ textAlign: 'center' }}>
-        <div className="card-sub">ai学 · 版本 1.0.0</div>
+        <div className="card-sub">ai学 · 版本 {__APP_VERSION__}</div>
       </div>
 
       {showLog && <LogPanel onClose={() => setShowLog(false)} />}

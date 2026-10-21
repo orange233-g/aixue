@@ -3,8 +3,8 @@ import { useUI } from '../stores/useUIStore'
 import { useKB } from '../stores/useKBStore'
 import { useModal } from '../stores/useModalStore'
 import type { KBDoc } from '../types'
-import { EMBED_MODELS } from '../ai/embed/registry'
-import type { EmbedModel } from '../ai/embed/types'
+import { listEmbedModels } from '../ai/embed/registry'
+import { modelDisplayName, modelShortName } from '../ai/embed/display'
 import AppIcon, { type AppIconName } from '../components/AppIcon'
 
 const STATUS: Record<KBDoc['status'], { text: string; cls: string }> = {
@@ -81,9 +81,7 @@ const SKETCHES: ReactNode[] = [
 
 /** 向量模型短名（卡片状态 tag 用） */
 function idxShort(id?: string): string {
-  if (id === 'bge-small-zh-v1.5') return 'bge'
-  if (id === 'qwen3-embedding-0.6b') return 'Qwen3'
-  return id || ''
+  return modelShortName(id)
 }
 
 /** 卡状态：就绪细分 语义·模型 / 待生成索引 / 关键词检索。
@@ -109,10 +107,8 @@ function cardState(
   return { text: st.text, cls: st.cls }
 }
 
-/** 模型展示名（去掉「（内置默认）/（进阶）」后缀，显完整型号） */
-function modelFullName(m: EmbedModel): string {
-  return m.name.replace(/\s*（.*?）\s*$/g, '').trim()
-}
+/** 模型展示名（去掉「（内置默认）」等后缀，显示完整型号） */
+const modelFullName = modelDisplayName
 
 export default function KnowledgeBasePage() {
   const navigate = useUI((s) => s.navigate)
@@ -228,7 +224,7 @@ export default function KnowledgeBasePage() {
     </button>
   )
 
-  const selectedMode = modeId === 'bm25' ? null : EMBED_MODELS.find((m) => m.id === modeId)
+  const selectedMode = modeId === 'bm25' ? null : listEmbedModels().find((m) => m.id === modeId)
 
   return (
     <div className="kb-v2-page">
@@ -357,14 +353,12 @@ export default function KnowledgeBasePage() {
                   {modeOpen && (
                     <div className="kb-mode-pop" onClick={(e) => e.stopPropagation()}>
                       {optionRow('bm25', <span className="kb-mode-emoji">🔍</span>, '关键词检索（BM25）', '按关键词匹配，速度最快，无模型开销')}
-                      {EMBED_MODELS.map((m) =>
+                      {listEmbedModels().map((m) =>
                         optionRow(
                           m.id,
                           <img className="avatar-logo sm" src={m.logo} alt={m.name} />,
                           modelFullName(m),
-                          m.id === 'bge-small-zh-v1.5'
-                            ? '语义检索 · 中文特化，小而快，中文知识库首选'
-                            : '语义检索 · 多语言长文档，召回更强；体积大、建索引较慢',
+                          m.note,
                         ),
                       )}
                     </div>

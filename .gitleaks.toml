@@ -3,7 +3,7 @@
 #   gitleaks detect --source=. -v        # 工作区扫描
 #   gitleaks git --log-opts="--all" -v   # 完整 Git 历史扫描
 #   npm run secret:scan                  # 封装门禁（见 scripts/secret-scan.mjs）
-title = "问学 AI 凭据扫描"
+title = "ai学（Aixue）凭据扫描"
 
 [extend]
 useDefault = true

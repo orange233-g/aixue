@@ -1,7 +1,7 @@
 {
   "name": "ai-xue",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "license": "MIT",
   "scripts": {
@@ -16,10 +16,11 @@
     "android:personal": "npm run build && npx cap sync android && cd android && gradlew.bat assemblePersonal",
     "secret:scan": "node scripts/secret-scan.mjs",
     "secret:scan:optional": "node scripts/secret-scan.mjs optional",
-    "android:release": "node scripts/check-android-env.mjs && npm run build && npx cap sync android && cd android && gradlew.bat assembleRelease"
+    "android:release": "node scripts/check-android-env.mjs && npm run build && npx cap sync android && cd android && gradlew.bat assembleRelease",
+    "pack:model": "node scripts/pack-embed-model.mjs"
   },
   "dependencies": {
-    "@capacitor/android": "^8.5.0",
+    "@capacitor/android": "^8.5.3",
     "@capacitor/app": "^8.1.1",
     "@capacitor/core": "^8.5.0",
     "@capacitor/filesystem": "^8.1.3",
@@ -42,5 +43,19 @@
     "typescript": "~6.0.2",
     "vite": "^8.2.0",
     "vitest": "^4.1.11"
+  },
+  "description": "本地优先的 AI 出题 + 刷题学习应用：自然语言生成题包，配合间隔复习、错题本与本地知识库语义检索，数据全部保存在设备本地。",
+  "keywords": [
+    "ai",
+    "quiz",
+    "flashcards",
+    "spaced-repetition",
+    "react",
+    "capacitor",
+    "indexeddb",
+    "onnx"
+  ],
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
   }
 }

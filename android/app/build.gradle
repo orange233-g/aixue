@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+// 版本号唯一事实源：仓库根 package.json（与 Web UI 展示同源，避免多处手写不一致）
+def appVersionName = new groovy.json.JsonSlurper().parse(rootProject.file('../package.json')).version
+
 android {
     namespace = "com.aixue.app"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -8,7 +11,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName appVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.

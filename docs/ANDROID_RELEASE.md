@@ -25,7 +25,7 @@ npm run android:release   # 正式包：环境前置检查 + build + sync + grad
 
 产物位置：`android/app/build/outputs/apk/<变体>/`。
 
-`npm run android:sync` 会把 `dist/`（含 `public/models/` 下的内置向量模型，若已放置）同步到 `android/app/src/main/assets/public/`，并生成 wasm 后端所需的 `assets/ort-wasm/`。该同步产物目录已在 `.gitignore` 中排除。
+`npm run android:sync` 会把 `dist/`（含 `public/models/bge/` 内置向量模型）同步到 `android/app/src/main/assets/public/`，并生成 wasm 后端所需的 `assets/ort-wasm/`。该同步产物目录已在 `.gitignore` 中排除。
 
 ## 3. 环境要求
 
@@ -71,7 +71,7 @@ keytool -genkeypair -v -keystore aixue-release.jks -alias aixue \
 | 位置 | 读取的变量 |
 |---|---|
 | `android/app/build.gradle`（真正用于签名） | `AIXUE_KEYSTORE_PATH` / `AIXUE_KEYSTORE_PASS` / `AIXUE_KEY_ALIAS` / `AIXUE_KEY_PASS` |
-| `scripts/check-android-env.mjs`（release 前置检查） | `WENXUE_KEYSTORE_PATH` / `WENXUE_KEYSTORE_PASS` / `WENXUE_KEY_ALIAS` / `WENXUE_KEY_PASS` |
+| `scripts/check-android-env.mjs`（release 前置检查） | `AIXUE_KEYSTORE_PATH` / `AIXUE_KEYSTORE_PASS` / `AIXUE_KEY_ALIAS` / `AIXUE_KEY_PASS` |
 
 后果：只配置 `AIXUE_*` 时，前置检查会报"未配置 keystore"并以退出码 1 阻断 `npm run android:release`；若两套都配成同一份 keystore，则流程可以走通。正式发布前建议把检查脚本统一为 `AIXUE_*`（或同时兼容两套命名）。
 
@@ -85,7 +85,7 @@ keytool -genkeypair -v -keystore aixue-release.jks -alias aixue \
 
 1. `npm test`、`npx tsc --noEmit`、`npm run build` 全部通过；
 2. `npm run secret:scan` 通过（工作区与完整 Git 历史均无泄露）；
-3. `dist/` 内确认 `assets/ort-wasm/` 已生成；如需语义检索，确认 `public/models/` 已放置模型；
+3. `dist/` 内确认 `assets/ort-wasm/` 已生成，且 `dist/models/bge/` 含内置向量模型；
 4. 真机安装后验证：四条安全区不被状态栏/手势条遮挡、软键盘为平移而非压缩页面、子页返回回到宿主页、主 Tab 连按两次退出、长任务期间屏幕常亮；
 5. 验证无 AI 配置时不误触发真实模型调用；配置真实 Key 后，仅在你明确授权时才发起真实生题；
 6. 清除应用数据后首启不崩溃（IndexedDB 全新建库路径）。

@@ -16,20 +16,14 @@ import { surrogateSafeEnd } from '../services/files/pool'
 import { pickFiles } from '../utils'
 import { dbKBVectors } from '../db'
 import { getEmbedModel } from '../ai/embed/registry'
-import type { EmbedModel } from '../ai/embed/types'
+import { modelDisplayName, modelShortName } from '../ai/embed/display'
 import AppIcon from '../components/AppIcon'
 import RecallTest from '../components/RecallTest'
 
 /** 向量模型短名 */
-function idxShort(id?: string): string {
-  if (id === 'bge-small-zh-v1.5') return 'bge'
-  if (id === 'qwen3-embedding-0.6b') return 'Qwen3'
-  return id || ''
-}
+const idxShort = modelShortName
 /** 完整模型名（去后缀） */
-function modelFullName(m: EmbedModel): string {
-  return m.name.replace(/\s*（.*?）\s*$/g, '').trim()
-}
+const modelFullName = modelDisplayName
 
 /** 从文件/笔记取类型标签（仅展示用；笔记显式「笔记」，其余按扩展名） */
 function fileKind(name: string, type?: 'file' | 'note'): string {

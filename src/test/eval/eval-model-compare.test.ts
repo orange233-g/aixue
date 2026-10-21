@@ -1,7 +1,7 @@
 /**
  * 模型横向对比评估：bge-small-zh-v1.5 vs Qwen3-Embedding-0.6B（同数据集、同检索链路）
  *
- * 用真实 ONNX（model-pack/bge 与 public/models/qwen3）+ 生产检索函数（searchSections /
+ * 用真实 ONNX（model-pack/bge 与 model-pack/qwen3）+ 生产检索函数（searchSections /
  * searchVectors / rrfFusion / MIN 门禁），对同一份 eval 数据集各跑一遍，输出 Recall@5 与失败 case。
  * - bge：cls 池化、无 query 指令。
  * - qwen3：last_token 池化、query 加官方 queryInstruct 前缀（与生产 ref.ts 的 withQueryInstruct 一致）。
@@ -19,7 +19,7 @@ import type { KBSection } from '../../types'
 
 const EVAL_DIR = join(process.cwd(), 'src/test/eval/datasets')
 const BGE_DIR = join(process.cwd(), 'model-pack/bge-small-zh-v1.5')
-const QWEN_DIR = join(process.cwd(), 'public/models/qwen3')
+const QWEN_DIR = join(process.cwd(), 'model-pack/qwen3-embedding-0.6b')
 
 // ================= bge tokenizer / vec =================
 const bgeTok = JSON.parse(readFileSync(join(BGE_DIR, 'tokenizer.json'), 'utf8'))
