@@ -6,14 +6,19 @@
  * - 回归锁：编码输出自 2026-08-26 首次跑通固定（防止后续改动悄悄改变 token 序列；字节级外部
  *   oracle 校验需在线 tokenizers 库，本沙箱 pip 源不可达暂缺，回归锁保证改动可感知）。
  */
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { describe, expect, it } from 'vitest'
-import { buildBpeTokenizer, buildWordPieceTokenizer, bytePairMerge } from './tokenizers'
+import { beforeAll, describe, expect, it } from 'vitest'
+import { buildBpeTokenizer, buildWordPieceTokenizer, bytePairMerge, type Tokenizer } from './tokenizers'
 
+// 真实词表来自本地模型权重目录（model-pack/ 不入库）：干净克隆下自动跳过这两组用例，
+// 放了模型后再跑即可覆盖真实词表（npm test 仍是零外部依赖的可运行门禁）。
 const PACK = join(process.cwd(), 'model-pack')
-const qwenTok = JSON.parse(readFileSync(join(PACK, 'qwen3-embedding-0.6b/tokenizer.json'), 'utf8'))
-const bgeTok = JSON.parse(readFileSync(join(PACK, 'bge-small-zh-v1.5/tokenizer.json'), 'utf8'))
+const QWEN_TOK_PATH = join(PACK, 'qwen3-embedding-0.6b/tokenizer.json')
+const BGE_TOK_PATH = join(PACK, 'bge-small-zh-v1.5/tokenizer.json')
+const hasModelFiles = existsSync(QWEN_TOK_PATH) && existsSync(BGE_TOK_PATH)
+const qwenTok = hasModelFiles ? JSON.parse(readFileSync(QWEN_TOK_PATH, 'utf8')) : null
+const bgeTok = hasModelFiles ? JSON.parse(readFileSync(BGE_TOK_PATH, 'utf8')) : null
 
 const VOCAB_SIZE_QWEN = 151643
 
@@ -44,8 +49,11 @@ describe('bytePairMerge（BPE 合并算法，合成黄金）', () => {
   })
 })
 
-describe('BPE tokenizer（Qwen3 真实词表）', () => {
-  const tok = buildBpeTokenizer(qwenTok, 32768)
+describe.skipIf(!hasModelFiles)('BPE tokenizer（Qwen3 真实词表）', () => {
+  let tok!: Tokenizer
+  beforeAll(() => {
+    tok = buildBpeTokenizer(qwenTok!, 32768)
+  })
 
   it('分词结果全部落在词表内且非空', () => {
     const samples = ['你好，世界！这是一个测试。', 'Given a web search query, retrieve relevant passages', '凡人修仙传 韩立 修仙', 'Qwen3-Embedding 0.6B 12.5%']
@@ -72,7 +80,7 @@ describe('BPE tokenizer（Qwen3 真实词表）', () => {
   })
 
   it('截断到 maxTokens', () => {
-    const small = buildBpeTokenizer(qwenTok, 16)
+    const small = buildBpeTokenizer(qwenTok!, 16)
     expect(small.encode('a'.repeat(200)).length).toBeLessThanOrEqual(16)
   })
 
@@ -90,16 +98,20 @@ describe('BPE tokenizer（Qwen3 真实词表）', () => {
       'Hello world': [9707, 1879],
       凡人修仙传: [100216, 17340, 23081, 100717, 41683],
     }
-    const tok2 = buildBpeTokenizer(qwenTok, 32768)
+    const tok2 = buildBpeTokenizer(qwenTok!, 32768)
     for (const [s, want] of Object.entries(pin)) {
       expect(tok2.encode(s)).toEqual(want)
     }
   })
 })
 
-describe('WordPiece tokenizer（bge）', () => {
-  const tok = buildWordPieceTokenizer(bgeTok, 512)
-  const vocabSize = Object.keys((bgeTok as any).model.vocab).length
+describe.skipIf(!hasModelFiles)('WordPiece tokenizer（bge）', () => {
+  let tok!: Tokenizer
+  let vocabSize = 0
+  beforeAll(() => {
+    tok = buildWordPieceTokenizer(bgeTok!, 512)
+    vocabSize = Object.keys((bgeTok as any).model.vocab).length
+  })
 
   it('以 [CLS] 开头、[SEP] 结尾，id 全部在词表内', () => {
     const vocab = (bgeTok as any).model.vocab as Record<string, number>
@@ -124,7 +136,7 @@ describe('WordPiece tokenizer（bge）', () => {
   })
 
   it('截断到 maxTokens', () => {
-    const small = buildWordPieceTokenizer(bgeTok, 32)
+    const small = buildWordPieceTokenizer(bgeTok!, 32)
     expect(small.encode('这是一个非常长的中文句子'.repeat(20)).length).toBeLessThanOrEqual(32)
   })
 })

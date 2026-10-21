@@ -23,7 +23,7 @@ Aixue is a local-first quiz generator and study app built with React + Capacitor
 | 界面 | React 19 + TypeScript + Vite 8（自研 CSS 主题：[src/theme-v2.css](src/theme-v2.css)） |
 | 状态 | Zustand 5 |
 | 存储 | IndexedDB（[idb](https://github.com/jakearchibald/idb) 封装：[src/db/index.ts](src/db/index.ts)） |
-| 端侧推理 | onnxruntime-web（SIMD wasm）+ 自研 tokenizer，模型随应用内置、离线推理 |
+| 端侧推理 | onnxruntime-web（SIMD wasm）+ 自研 tokenizer，内置 bge、可选模型本地导入，离线推理 |
 | 打包 | Capacitor 8（Android，包名 `com.aixue.app`） |
 | 测试 | Vitest（fake-indexeddb 隔离数据库） |
 
