@@ -8,7 +8,7 @@ body:
       value: |
         感谢反馈！提交前请先搜索是否已有相同 Issue。
         **请不要在 Issue 里粘贴 API Key、keystore、私人学习内容或完整日志原文（请先脱敏）。**
-        安全问题请按 [SECURITY.md](https://github.com/OWNER/REPO/blob/main/SECURITY.md) 私下上报。
+        安全问题请按 [SECURITY.md](https://github.com/orange233-g/aixue/blob/main/SECURITY.md) 私下上报。
   - type: input
     id: version
     attributes:

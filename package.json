@@ -58,5 +58,13 @@
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
-  "author": "ai学 (Aixue) contributors"
+  "author": "ai学 (Aixue) contributors",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orange233-g/aixue.git"
+  },
+  "homepage": "https://github.com/orange233-g/aixue#readme",
+  "bugs": {
+    "url": "https://github.com/orange233-g/aixue/issues"
+  }
 }

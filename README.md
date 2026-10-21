@@ -1,5 +1,9 @@
 # ai学（Aixue）
 
+[![CI](https://github.com/orange233-g/aixue/actions/workflows/ci.yml/badge.svg)](https://github.com/orange233-g/aixue/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/orange233-g/aixue)](https://github.com/orange233-g/aixue/releases)
+
 > 本地优先的 AI 出题 + 刷题学习应用：用自然语言把自己的主题或资料变成题包，再配合间隔复习、错题本与本地知识库语义检索来刷题。**所有学习数据保存在设备本地。**
 
 Aixue is a local-first quiz generator and study app built with React + Capacitor. Describe what you want to learn, let any OpenAI-compatible LLM draft the questions, then drill yourself with spaced repetition. All user data stays on the device (IndexedDB) — there is no backend service.
@@ -81,7 +85,7 @@ npm run secret:scan     # 密钥扫描门禁（需先安装 gitleaks，fail-clos
 知识库的语义检索使用端侧 ONNX 向量模型，分两种来源：
 
 - **内置（默认）**：bge-small-zh-v1.5（约 95 MB，MIT 许可，BAAI）随 app 分发，开箱即用。
-- **可选导入**：Qwen3-Embedding-0.6B（约 614 MB，Apache-2.0，阿里通义千问）体积较大，不随 app 分发。需要时从 GitHub Releases 下载 `qwen3-embedding-0.6b.aixue-model`，在「我的 → 向量模型 → 添加模型」选择该文件导入（只保存到本机，可随时删除）。
+- **可选导入**：Qwen3-Embedding-0.6B（约 614 MB，Apache-2.0，阿里通义千问）体积较大，不随 app 分发。需要时从 [GitHub Releases](https://github.com/orange233-g/aixue/releases) 下载 `qwen3-embedding-0.6b.aixue-model`，在「我的 → 向量模型 → 添加模型」选择该文件导入（只保存到本机，可随时删除）。
 
 模型包格式、打包脚本（`npm run pack:model`）与发布步骤见 [docs/模型包与导入.md](docs/模型包与导入.md)。即使不导入任何模型，也可以选择 **BM25 关键词检索**，其余功能不受影响。
 

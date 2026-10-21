@@ -36,3 +36,5 @@
 - README、部署与模型准备、Android 发布、知识库原理、九题型导入示例、模型包格式与导入说明。
 - CONTRIBUTING / SECURITY / PRIVACY / THIRD-PARTY-NOTICES / CODE_OF_CONDUCT。
 
+[Unreleased]: https://github.com/orange233-g/aixue/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/orange233-g/aixue/releases/tag/v1.0.0
