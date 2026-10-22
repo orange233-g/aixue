@@ -134,7 +134,6 @@ npm run android:release   # 正式 release（需先配置签名环境变量，�
 |---|---|
 | [docs/本地部署与模型准备.md](docs/本地部署与模型准备.md) | 本地运行、向量模型放置与校验、开发代理说明 |
 | [docs/ANDROID_RELEASE.md](docs/ANDROID_RELEASE.md) | Android 签名、构建与发布步骤 |
-| [docs/AI知识库原理.md](docs/AI知识库原理.md) | 知识库分块、索引与检索原理 |
 | [docs/知识库索引与检索说明.md](docs/知识库索引与检索说明.md) | 索引生成与检索通道说明 |
 | [docs/九题型导入示例.md](docs/九题型导入示例.md) | 题包 JSON / Markdown 导入格式示例 |
 | [docs/模型包与导入.md](docs/模型包与导入.md) | 向量模型包格式、打包、发布与导入说明 |
