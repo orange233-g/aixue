@@ -37,6 +37,9 @@ android/emulator_launch.png
 ui.xml
 
 # 敏感配置：密钥一律走环境变量，只提交空模板
+# 签名材料本地备份（keystore + 密码，绝不入库）
+.secrets/
+
 .env
 .env.*
 !.env.example
